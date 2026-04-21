@@ -60,16 +60,18 @@ Three classifiers are compared, each wrapped in a `sklearn Pipeline` (StandardSc
 
 All models are evaluated with 5-fold cross-validation on the training set, then assessed on a held-out test set (20% split).
 
+## Class Balance
+
+The dataset is **balanced**: 2,000 good apples and 2,000 bad apples (50/50 split). This means accuracy, precision, recall, and F1 are all valid evaluation metrics — no oversampling or class-weight adjustments are needed.
+
 ## Results
 
-| Model | Test Accuracy | ROC-AUC |
-|---|---|---|
-| Logistic Regression | 0.75 | — |
-| Random Forest (tuned) | ~0.90 | — |
-| SVM (tuned, C=100) | 0.93 | — |
+| Model | Test Accuracy | ROC-AUC | CV Accuracy (5-fold) |
+|---|---|---|---|
+| Logistic Regression | 0.76 | 0.82 | 0.743 ± 0.014 |
+| Random Forest (tuned) | 0.90 | 0.96 | 0.878 ± 0.008 |
+| SVM (tuned, C=100) | 0.92 | 0.97 | 0.902 ± 0.005 |
 
-> ROC-AUC values are computed when running the notebook.
-
-**Best model:** SVM with RBF kernel (C=100), achieving **93% accuracy** on the test set.
+**Best model:** SVM with RBF kernel (`C=100`, `gamma='scale'`), achieving **92% accuracy** and **0.97 ROC-AUC** on the test set.
 
 The Random Forest feature importance analysis shows which apple attributes most strongly predict quality.
